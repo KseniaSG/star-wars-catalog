@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaginationResponse } from '@datorama/akita';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
@@ -38,7 +38,7 @@ export class CatalogService {
             data: res.results
           };
         }),
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           return throwError(() => new Error('getList failed ' + error));
         })
       );
@@ -47,7 +47,7 @@ export class CatalogService {
   getDetailsById(id: string): Observable<PersonDetailsResponse> {
     return this.http.get<PersonDetailsResponse>(Catalog.list + '/' + id)
       .pipe(
-        catchError(error => {
+        catchError((error: HttpErrorResponse) => {
           return throwError(() => new Error('getDetailsById failed ' + error));
         })
     );
