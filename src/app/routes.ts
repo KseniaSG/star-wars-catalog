@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
 
+export const ROUTE_PATH = {
+  CATALOG: 'catalog'
+};
+
 export const childRoutes: Routes = [
   {
     path: '',
@@ -14,7 +18,7 @@ export const childRoutes: Routes = [
 
 export const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'catalog'
+    path: '', pathMatch: 'full', redirectTo: ROUTE_PATH.CATALOG
   },
   {
     path: 'catalog',

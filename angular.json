@@ -31,7 +31,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "src/assets/styles/styles.scss",
+                "bundleName": "styles",
+                "inject": true
+              }
             ],
             "scripts": []
           },

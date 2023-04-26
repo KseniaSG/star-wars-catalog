@@ -1,5 +1,9 @@
 export const baseApiUrl = 'https://swapi.tech/api';
 
-export const Catalog = {
-  list: `${baseApiUrl}/people`
+export const PATH = {
+  CATALOG: 'people'
+};
+
+export const CATALOG = {
+  LIST_URL: `${baseApiUrl}/${PATH.CATALOG}`
 };

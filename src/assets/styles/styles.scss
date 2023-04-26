@@ -1,0 +1,38 @@
+@import 'imports';
+
+body {
+  background: map-get($colors, draftBlue);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+a,
+a:visited,
+a:hover {
+  color: map-get($colors, draftBlue);
+  text-decoration: none;
+}
+
+a:hover {
+  color: map-get($colors, draftBlue);
+}
+
+@media screen and (max-width: 767px) {
+
+}
+
+@media screen and (max-width: 575px) {
+
+}
+

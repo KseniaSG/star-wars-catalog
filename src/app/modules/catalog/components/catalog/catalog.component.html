@@ -1,0 +1,46 @@
+<section *ngIf="(pagination$ | async) as pagination">
+  <div class="catalog">
+    <ng-container *ngFor="let person of pagination.data">
+      <ng-container *ngIf="pagination.data?.length; else noData">
+        <div class="catalog__item" [ngClass]="{ 'sith': siths.includes(person['name']) } ">
+          <a [routerLink]="['/', catalogListUrl, person['uid']]">{{ person['name'] }}</a>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <ng-template #noData>
+    Nothing to load...
+  </ng-template>
+
+  <div class="catalog__pagination">
+    <div class="catalog__pagination--range">
+      <p>{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</p>
+    </div>
+
+    <ul>
+      <li [class.disabled]="paginatorRef.isFirst"
+          (click)="paginatorRef.setFirstPage()">
+        First page
+      </li>
+
+      <li [class.disabled]="paginatorRef.isFirst" (click)="paginatorRef.prevPage()">
+        Prev
+      </li>
+
+      <li *ngFor="let page of pagination.pageControls"
+          (click)="paginatorRef.setPage(page)"
+          [class.active]="paginatorRef.isPageActive(page)">
+        {{page}}
+      </li>
+
+      <li [class.disabled]="paginatorRef.isLast" (click)="paginatorRef.nextPage()">
+        Next
+      </li>
+
+      <li [class.disabled]="paginatorRef.isLast" (click)="paginatorRef.setLastPage()">
+        Last
+      </li>
+    </ul>
+  </div>
+</section>
