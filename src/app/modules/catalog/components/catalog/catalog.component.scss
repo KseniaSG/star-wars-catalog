@@ -5,16 +5,15 @@ $transition: all .1s ease-in-out;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  max-height: 67vh;
-  overflow: auto;
+  max-height: calc(100vh - 10rem);
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   &__item {
-    //background-color: map-get($colors, cadetGrey);
     border: 0.2rem solid map-get($colors, cadetGrey);
     border-radius: 0.3rem;
     font-size: 1.5rem;
     margin: 1rem;
-    padding: 2rem 8rem;
     text-transform: uppercase;
 
     &.sith {
@@ -33,6 +32,9 @@ $transition: all .1s ease-in-out;
     }
 
     a {
+      display: block;
+      padding: 2rem 8rem;
+      width: 100%;
       color: white;
       text-shadow:
         white 0 0 0,
@@ -115,7 +117,6 @@ $transition: all .1s ease-in-out;
   }
 }
 
-
 @media screen and (max-width: 1024px) {
   .catalog {
     flex-direction: column;
@@ -127,7 +128,10 @@ $transition: all .1s ease-in-out;
       border-radius: 0.3rem;
       font-size: 0.7rem;
       margin: 0.2rem;
-      padding: 0.5rem 2rem;
+
+      a {
+        padding: 0.5rem 2rem;
+      }
     }
 
     &__pagination {

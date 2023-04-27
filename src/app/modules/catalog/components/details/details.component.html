@@ -1,3 +1,36 @@
-<ng-container *ngFor="let property of person?.properties | keyvalue">
-  <div>{{ property.key}}: {{ property.value}}</div>
-</ng-container>
+<section *ngIf="person?.properties as props">
+  <div class="card">
+    <div class="card__image">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </div>
+    <div class="card__details" >
+      <h2 class="card__details--name">{{ props['name']}}</h2>
+      <ul class="card__details--list">
+        <li *ngFor="let propertyTitleValue of propertiesToDisplay">
+          <ng-template
+            [ngTemplateOutlet]="property"
+            [ngTemplateOutletContext]="{
+              propName: propertyTitleValue.valueName,
+              value: props[propertyTitleValue.valueName],
+              title: propertyTitleValue.title
+              }"
+          >
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #property let-value="value" let-title="title" let-propName="propName">
+    <ng-container *ngIf="propName === 'homeworld' else dateCheck">
+      {{ title }}: <a [href]="value">Homeworld page to be created...</a>
+    </ng-container>
+    <ng-template #dateCheck>
+      <ng-container *ngIf="propName === 'created' || propName === 'edited' else plainTitleValue">
+        {{ title }}: {{ value | date: 'dd MMM yyyy'}}
+      </ng-container>
+    </ng-template>
+    <ng-template #plainTitleValue>
+      {{ title }}: {{ value }}
+    </ng-template>
+  </ng-template>
+</section>

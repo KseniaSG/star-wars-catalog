@@ -6,7 +6,7 @@ import { Observable, switchMap } from 'rxjs';
 import { CATALOG_PAGINATOR } from 'src/app/modules/catalog/services/catalog-paginator.service';
 import { CatalogService } from 'src/app/modules/catalog/services/catalog.service';
 import { Person } from 'src/app/modules/catalog/state/catalog.model';
-import { CatalogState, CatalogStore } from 'src/app/modules/catalog/state/catalog.store';
+import { CatalogState } from 'src/app/modules/catalog/state/catalog.store';
 import { ROUTE_PATH } from 'src/app/routes';
 
 @Component({
@@ -18,25 +18,22 @@ import { ROUTE_PATH } from 'src/app/routes';
 })
 export class CatalogComponent implements OnInit {
   readonly catalogListUrl = ROUTE_PATH.CATALOG;
-  readonly siths: string[] = [
-    'Darth Vader'
-  ];
+  readonly siths: string[] = ['Darth Vader'];
+  readonly pageLimit: number = 10;
+
   pagination$!: Observable<PaginationResponse<CatalogState>>;
   list$!: Observable<Person[]>;
 
   constructor(
     private service: CatalogService,
-    private store: CatalogStore,
     @Inject(CATALOG_PAGINATOR) public paginatorRef: PaginatorPlugin<CatalogState>
   ) {}
 
   ngOnInit(): void {
-    this.store.setActive(null);
-
     this.pagination$ = this.paginatorRef.pageChanges
       .pipe(
         switchMap((page: number) => {
-          const reqFn = () => this.service.getList({ page, limit: 10 });
+          const reqFn = () => this.service.getList({ page, limit: this.pageLimit });
 
           return this.paginatorRef.getPage(reqFn);
         })

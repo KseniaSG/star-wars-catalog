@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { switchMap } from 'rxjs';
 import { CatalogService } from 'src/app/modules/catalog/services/catalog.service';
-import { PersonDetails, PersonDetailsResponse } from 'src/app/modules/catalog/state/catalog.model';
+import { PersonDetails, PersonDetailsResponse, PropertyToDisplay } from 'src/app/modules/catalog/state/catalog.model';
 
 @UntilDestroy()
 @Component({
@@ -16,6 +16,13 @@ import { PersonDetails, PersonDetailsResponse } from 'src/app/modules/catalog/st
 })
 export class DetailsComponent implements OnInit {
   person!: PersonDetails;
+  propertiesToDisplay: PropertyToDisplay[] = [
+    { valueName: 'homeworld', title: "Home"},
+    { valueName: 'height', title: "Height"},
+    { valueName: 'birth_year', title: "Birth Year"},
+    { valueName: 'hair_color', title: "Hair Color"},
+    { valueName: 'created', title: "Created"}
+  ];
 
   constructor(
     readonly service: CatalogService,
