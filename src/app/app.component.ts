@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { akitaDevtools } from '@datorama/akita';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,9 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule]
 })
 export class AppComponent {
-  title = 'SW Characters Catalog';
+  constructor(private ngZone: NgZone) {
+    if (!environment.production) {
+      akitaDevtools(this.ngZone, { maxAge: 20 });
+    }
+  }
 }

@@ -7,6 +7,7 @@ export const ROUTE_PATH = {
 export const childRoutes: Routes = [
   {
     path: '',
+    title: 'SW Characters Catalog',
     loadComponent: () => import('./modules/catalog/components/catalog/catalog.component').then(m => m.CatalogComponent),
     pathMatch: 'full'
   },
