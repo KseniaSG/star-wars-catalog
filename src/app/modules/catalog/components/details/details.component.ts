@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { switchMap } from 'rxjs';
@@ -26,7 +26,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     readonly service: CatalogService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -40,5 +41,9 @@ export class DetailsComponent implements OnInit {
       .subscribe((res: PersonDetailsResponse) => {
         this.person = res.result;
       });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
