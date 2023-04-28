@@ -17,7 +17,7 @@ export class AppComponent {
     private ngZone: NgZone
   ) {
     if (!environment.production) {
-      // akitaDevtools(this.ngZone, { maxAge: 20 });
+      akitaDevtools(this.ngZone, { maxAge: 20 });
     }
   }
 }

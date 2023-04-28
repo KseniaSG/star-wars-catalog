@@ -41,6 +41,7 @@
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/(?!.*.mjs$|@datorama/akita)"
     ],
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!.*.mjs$|@datorama/akita)"],
     "modulePaths": [
       "<rootDir>"
     ],

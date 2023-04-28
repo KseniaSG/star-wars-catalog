@@ -1,11 +1,10 @@
 import { CATALOG_PAGINATOR } from '@app/modules/catalog/services/catalog-paginator.service';
-import { Person } from '@app/modules/catalog/state/catalog.model';
 import { CatalogState } from '@app/modules/catalog/state/catalog.store';
-import { PaginationResponse, PaginatorPlugin } from '@datorama/akita';
+import { PaginatorPlugin } from '@datorama/akita';
 import { createComponentFactory, Spectator, SpyObject } from '@ngneat/spectator/jest';
 import { CatalogComponent } from '@app/modules/catalog/components/catalog/catalog.component';
 import { CatalogService } from '@app/modules/catalog/services/catalog.service';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;
@@ -18,22 +17,29 @@ describe('CatalogComponent', () => {
     mocks: [ CatalogService ],
     shallow: true,
     detectChanges: false,
+    declareComponent: false,
     providers: [
       {
         provide: CATALOG_PAGINATOR,
-        useValue: { pageChanges: of(1) }
+        useValue: {
+          pageChanges: of(1),
+          getPage: () => of({
+            perPage: 1,
+            lastPage: 1,
+            currentPage: 1,
+            total: 1,
+            data: []
+          })
+        }
       }
     ]
   });
 
-  const responseMock: Observable<PaginationResponse<Person>> = of({} as unknown as PaginationResponse<Person> );
-
   beforeEach(() => {
     spectator = createComponent();
     component = spectator.component;
-    pagerRef = spectator.inject(CATALOG_PAGINATOR) ;
+    pagerRef = spectator.inject(CATALOG_PAGINATOR);
     serviceSpy = spectator.inject(CatalogService, true);
-    serviceSpy.getList.andReturn(of(responseMock));
   });
 
   it('should be defined', () => {
@@ -41,10 +47,11 @@ describe('CatalogComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should call getList service method', () => {
+    it('should call getPage paginator method', () => {
+      jest.spyOn(pagerRef, 'getPage');
       spectator.detectChanges();
 
-      expect(serviceSpy.getList).toHaveBeenCalledWith({ page: 1, limit: 10});
+      expect(pagerRef.getPage).toHaveBeenCalled();
     });
   });
 });
