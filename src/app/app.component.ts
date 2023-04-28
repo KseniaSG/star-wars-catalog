@@ -11,9 +11,13 @@ import { environment } from 'src/environments/environment';
   imports: [RouterModule]
 })
 export class AppComponent {
-  constructor(private ngZone: NgZone) {
+  title = "star wars catalog";
+
+  constructor(
+    private ngZone: NgZone
+  ) {
     if (!environment.production) {
-      akitaDevtools(this.ngZone, { maxAge: 20 });
+      // akitaDevtools(this.ngZone, { maxAge: 20 });
     }
   }
 }
